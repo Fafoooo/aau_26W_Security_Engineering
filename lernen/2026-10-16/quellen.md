@@ -1,46 +1,63 @@
-# Quellen zum Lernzettel vom 16.10.2026
+# Quellen zum Lernzettel vom 16.10.2026 (Minitest 23.10.2026)
+
+Überarbeitet am 20.10.2026 nach einem Review gegen Folien, Transkript, Moodle und Kurs-Chat.
 
 ## Verwendete Quellen
 
-1. **Lecture1.pdf**, 85 PDF-Seiten, Kurs „Security Engineering, 622.755 (26W)“, DI Dr. Jasmin Wachter, BA BSc.
-   - Zugeordnet über die aktualisierte Inhaltsübersicht auf PDF-Seite 2 („Introduction and course outline, adversary identification“ am 16.10.), die inhaltliche Übereinstimmung mit der Mitschrift und das PDF-Erstellungsdatum 16.10.2026.
-   - Alle PDF-Seiten mit `pdftotext -layout` erfasst und als Bilder gerendert; Übersichtsansichten aller Seiten sowie die widersprüchlichen Minitest-Angaben auf PDF-Seiten 3 und 84 zusätzlich in voller Größe geprüft.
-   - Im Lernzettel bedeutet **F** immer die PDF-Seitennummer, nicht eine gegebenenfalls abweichende Nummer in einem eingebetteten Bild.
-2. **2026-10-16_security-engineering-and-threat-modeling.txt**, Vowen-Mitschrift „Security Engineering and Threat Modeling“, 16.10.2026.
+1. **Lecture1.pdf**, 85 PDF-Seiten, Kurs „Security Engineering, 622.755 (26W)“, DI Dr. Jasmin Wachter, BA BSc (Moodle „Lecture 1“, Stand Fr 16.10. 13:32).
+   - Alle Seiten mit `pdftotext -layout` erfasst.
+   - Bildfolien zusätzlich als Bilder gerendert und gelesen: F9/F14 (Analysis Framework), F38–F43 (PRISM-/Google-Leak-Folien), F45 (Crypto), F47 (XKEYSCORE), F53 (Belt and Road), F55–F60 (Stuxnet-Ablauf, Stuxnet-Pfade, Sony, Russia-Ukraine-Timeline, SolarWinds-Ablauf, US-Wahl 2016), F74 (AI-Agents), F84 (Minitest-Folie mit Beispielbild).
+   - Fragenfolien F76–F83 vollständig ausgewertet; jede dieser Fragen ist im Lernzettel einem Block zugeordnet (Markierung `?F77` … `?F83`).
+   - **F** im Lernzettel = PDF-Seitennummer dieser Datei.
+2. **Preamble-Lecture 0.pdf**, 15 PDF-Seiten (Moodle „Lecture 0: Preamble“, Stand Mi 30.09.).
+   - Nur für Organisatorisches verwendet: P7–P9 (Assessment, Grading, Minitest-Format der älteren Fassung), P11–P14 (Report, Poster Session). Inhaltlich identische Definitionen (P3) stammen aus Lecture1.
+   - **P** im Lernzettel = PDF-Seitennummer dieser Datei.
+3. **2026-10-16_security-engineering-and-threat-modeling.txt**, Vowen-Mitschrift „Security Engineering and Threat Modeling“, 16.10.2026, 0:00–1:24:45.
    - Original-Link: https://share.vowen.ai/n/fj78iogBvKRILSYxNoJkBO
-   - Verwendet wurden die zeitgestempelten Aussagen von 0:00 bis 1:24:45, nicht die automatisch erzeugte Zusammenfassung als eigenständiger Beleg.
-   - **T** im Lernzettel bezeichnet diese Zeitstempel.
+   - Verwendet wurden die zeitgestempelten Aussagen, nicht die automatische Zusammenfassung als eigenständiger Beleg.
+   - **T** im Lernzettel = Zeitstempel.
+4. **Moodle-Kurs 62275526W (id 47237)**, gelesen am 20.10.2026 über die Moodle-App-API (nur lesend, nichts heruntergeladen):
+   - Abschnittstexte „General Information“ (Termine Poster Session 15.1. 11:45, Poster-Druck bis 9.1., Final Exam 22.1. 11:45, Report-Frist 28.02.2027 mit Soft Margin), „Lecture Notes“ (Fragen am Foliensatzende relevant, aber nicht vollständig; Themenwahl), Beschreibung „Lecture 1“ (Folien enthalten auch nicht besprochene Details; Buch Kap. 1–2; Video 1 Min. 0–43).
+   - Seiten „Report and Poster“ und „Grading and Assessment Information“.
+   - Abstimmung „Task: Select Topics for Written Report/Poster Session“ (first-come-first-served, Plätze pro Thema begrenzt).
+   - Aufgaben „Poster (or Presentation)“ (fällig 9.1., Cutoff 16.1.) und „Final Report (Due: 28.2. 2027)“.
+   - Links „Lecture 1 (Part 1: Defintions)“ (YouTube, Min. 0–8:30) und „Lecture 1 (Part 2)“ (YouTube, Min. 0–43).
+   - Forum „Ankündigungen“: über die API keine Beiträge sichtbar. Kein Quiz und kein „sample minitest“ im Kurs gefunden.
+   - **M** im Lernzettel = diese Kursseite.
+5. **E-Mail der Lehrperson** (vom Nutzer weitergegeben, nicht in Moodle gefunden): Minitest am Freitag, ca. 5 Minuten, Foliensatz inklusive Fragenfolien lernen, Poster-Thema auswählen.
+6. **WhatsApp-Kursgruppe** (Hermes-Profil `kurs`, lokaler Sitzungsspeicher, nur lesend durchsucht): einzige kursbezogene Nachricht ist die Rückfrage eines Gruppenmitglieds vom 20.10., ob der Lernzettel alle Fragen der letzten sieben Folien abdeckt. Daraus folgt die Zuordnung jeder Fragenfolien-Frage zu einem Block. Keine weiteren inhaltlichen Hinweise.
 
 ## Zuordnung der Inhalte
 
-- **Muss ich wissen / Grundlagen**: F5–21; T1:41–22:08.
-- **Muss ich wissen / Schutzeigenschaften und technische Begriffe**: F22–30; T22:29–39:32.
-- **Hinweise der Lehrperson**: T0:00–1:41, 9:28, 35:19–35:37, 42:09–42:37; als solche bezeichnete Ergänzungen zu Testdatum, Umfang, Rechenaufgaben und Ersatzprüfung aus F3 und F76–84.
-- **Priorisierung und Incentives**: F8–14, F32–34; T5:23–12:58, 40:08–41:10.
-- **Five Eyes und China**: F36–53; T43:05–1:11:47.
-- **Stuxnet, Sony, Russland/SolarWinds**: F54–60; T1:11:47–1:23:10.
-- **Intelligence Doctrine und Crooks**: F61–64; T1:23:10–1:24:45.
-- **Ergänzendes Material desselben Foliensatzes**: Ransomware F63–66, The Swamp F67–71, Social Media und AI F72–75.
-  Diese Inhalte werden nicht als in der Aufzeichnung ausführlich besprochen ausgegeben: Das Transkript endet beim Cybercrime-Ökosystem, und die zusätzlichen Themen erscheinen dennoch in den zum ersten Minitest gehörenden Fragenfolien F80–83.
-- **Selbsttest**: zehn neu formulierte Lernfragen im Stil von F77–83; alle Antworten aus den oben genannten Definitionen und Inhalten, keine Vorhersage tatsächlicher Prüfungsfragen.
+- **Muss ich wissen / Grundlagen**: F5–F16, F32–F33; T1:41–15:13, 40:31–41:10 (Fragen F77, F79).
+- **Muss ich wissen / Definitionen**: F17–F30; T15:18–39:32 (Fragen F77–F79).
+- **Muss ich wissen / Adversaries**: F34–F75; T41:41–1:24:45 (Fragen F80–F83). Ransomware, The Swamp, Social Media und AI (F65–F74) stehen jetzt in „Muss ich wissen“, weil die Fragenfolien danach fragen und Moodle sagt, dass die Folien auch nicht besprochene Details enthalten.
+- **Hinweise der Lehrperson**: T0:00–1:41, 9:28, 35:07–35:37, 39:32, 41:18, 42:26–42:37, 1:18:16; F2–F3, F76, F84; P9, P11–P14; Moodle; E-Mail.
+- **Gut zu wissen**: Bildfolien-Details F39–F40, F47; Bewertungsangaben F3, P7–P8, T0:00–0:28, Moodle.
+- **Selbsttest**: zehn Fragen im Wortlaut bzw. Stil von F77–F81; Antworten aus den Blöcken oben.
+
+## Änderungen gegenüber der ersten Fassung
+
+- Fragenfolien vollständig abgedeckt; vorher fehlten u. a. Safety vs. Security, die sechs System-Definitionen, die vier Formen zusammengesetzter Principals, der Name Bruce Schneier beim Hack, die Hierarchie Protection → Protection Profile → Security Target → Implementation, Stuxnet-Ablauf, Five-Eyes-Sammelwege (Cornwall, Gibraltar, Malta, Singapore; Satellite; Embassies), XKEYSCORE-Details, Microsoft-Hack 2021, Ransomware-Entwicklung, Content Moderation (DSA, Online Harms Bill, Backlash), „the rest of us“ als Amplifier.
+- Fragenfolien-Themen F80–F83 aus „Gut zu wissen“ nach „Muss ich wissen“ verschoben.
+- Organisation ergänzt: Themenwahl über die Moodle-Abstimmung, Termine aus Moodle, Hinweis auf widersprüchliche Bewertungsangaben.
+- Kleinere Korrekturen: Adversarial Thinking nicht mehr mit der F7-Aussage vermischt; Trusted-Beispiel TPM und Trustworthy-Beispiel aus F21 wörtlich; Heartbleed-Ursache aus F26.
+- Layout: 10 pt statt 11 pt, Aufzählungszeichen ohne Bitmap-Schrift.
 
 ## Quellenabgrenzung und Unsicherheiten
 
-- Im Auftragsfeld `folien_pdfs` war keine Datei angegeben; die thematisch und zeitlich passende **Lecture1.pdf** wurde aus den Zusatzquellen ermittelt, daher liegen sowohl Folien als auch Transkript vor.
-- **Preamble-Lecture 0.pdf** wurde nur auf Relevanz geprüft und nicht als Inhaltsquelle für den Lernzettel verwendet, weil sie zu einer anderen Einheit gehört und veraltete beziehungsweise widersprüchliche organisatorische Angaben enthält.
-- **Testmedium widersprüchlich**: Lecture1 F3 nennt „PEN + PAPER“, F84 „Moodle Quiz“; das Transkript klärt dies nicht, deshalb bleibt der Konflikt im Lernzettel ausdrücklich offen.
-- Die „weniger als 20 Punkte“-Regel für die Ersatzprüfung auf F3 wird nicht zu einer Bestehensgrenze umgedeutet; aus der älteren Preamble werden keine abweichenden Grenzen übernommen.
-- Der Ausschluss von Mathematical Computations bezieht sich ausschließlich auf „not this time“ in F84, nicht auf alle Minitests.
-- Laut Transkript ist jede an diesem Tag behandelte Definition potenziell prüfungsrelevant; die Frageliste wird in F76 als nicht vollständig bezeichnet.
-- Automatische Transkriptfehler wie „principle“ statt „principal“, verstümmelte Modellnamen, vermischte CVE/CWE-Bezeichnungen und unzuverlässige technische Details wurden nicht ungeprüft übernommen; eindeutige Begriffe wurden anhand der passenden Folien verwendet, unklare Modellnamen ausgelassen.
-- Authenticity, Subject und Identity werden ausdrücklich im Sinn dieser Vorlesung definiert, nicht als universell einheitlicher Sprachgebrauch ausgegeben.
-- Historische Angriffszuschreibungen werden als Darstellung der Vorlesung/Fallstudien gekennzeichnet; pauschale Rechtsbehauptungen zu US- und Nicht-US-Bürgern, spekulative SolarWinds-Personalgeschichten und unsichere Zero-Day-Anzahlen wurden nicht übernommen.
-- Es wurden keine externen Webquellen und keine Inhalte weiterer Vorlesungen ergänzt.
+- **Testmedium widersprüchlich**: F84 und P9 sagen „Moodle Quiz“, die Assessment-Folien F3/P7 „PEN + PAPER“; in Moodle ist noch kein Quiz angelegt. Die Empfehlung, Gerät und Stift mitzunehmen, ist als eigene Empfehlung gekennzeichnet.
+- **Termin Poster Session**: Moodle nennt 15.1. 11:45 (ein Freitag), F2 nennt 16.1. (ein Samstag); der Lernzettel nennt beide.
+- **Bewertung**: F3 und Transkript 45/25/30; Moodle-Seite „Grading and Assessment Information“ (Stand 07.09.) 45/45/10; Preamble gemischt. Bestehensgrenze Moodle 20 Punkte, P8 22 Punkte. Resubmission: Moodle erlaubt einmal (max. 10 Zusatzpunkte), Preamble sagt „cannot resubmit“ (nur in quellen.md, nicht minitest-relevant).
+- **Ältere Minitest-Angaben (P9)**: 2–4 Fragen, True/False und Mathematical Computations; F84 (neuer) sagt 2–3 Fragen, keine Rechnungen diesmal.
+- **„Querschnittsfrage“ (F83, challenges in identifying and combating online threats)**: Die Folien beantworten sie nicht an einer Stelle; der Block setzt nur Aussagen von F33, F64–F65, F72, F74–F75 zusammen.
+- **Transkriptfehler** wurden nicht übernommen („principle“ statt „principal“, „common weakness emulation“ statt Enumeration, „Adjava/Viva model“, „Masula“, „fake link insights“). Die Zahl der Stuxnet-Zero-Days (Transkript: sieben, mit Einschränkung) und die SolarWinds-Personalgeschichte wurden weggelassen, weil sie nicht auf den Folien stehen und unsicher sind.
+- Die konkrete Themenwahl einzelner Studierender steht nicht im Lernzettel (öffentliches Repo).
+- Zum Nachlernen laut F85/Moodle: Ross Anderson, *Security Engineering* (3. Aufl.), Kapitel 1 und 2; Moodle-Videos Part 1 (Min. 0–8:30) und Part 2 (Min. 0–43).
+- Keine externen Webquellen und keine Inhalte weiterer Vorlesungen ergänzt.
 
 ## Erstellung und Prüfung
 
-- Deutschsprachige Erklärungen mit englischen Fachbegriffen; eine A4-LaTeX-Quelle und ein schlichtes PDF mit höchstens sechs Seiten.
-- Themenblöcke mit höchstens fünf Stichpunkten und zehn Selbsttestfragen mit Antworten.
-- Quellenbezug und Reihenfolge geprüft; automatische Strukturprüfung bestätigt 20 Themenblöcke mit jeweils höchstens fünf Stichpunkten und genau zehn nummerierte Selbsttestfragen mit Antworten.
-- Zweimal mit `pdflatex -interaction=nonstopmode -halt-on-error` gebaut; PDF mit sechs A4-Seiten und ohne LaTeX-, Overfull- oder Underfull-Warnungen.
-- Alle sechs fertigen PDF-Seiten visuell geprüft; zusätzlich Bounding-Box-Prüfung auf Text außerhalb der Seitenränder bestanden.
+- Deutschsprachige Erklärungen mit englischen Fachbegriffen; A4, 6 Seiten.
+- Automatische Strukturprüfung: 36 Themenblöcke mit jeweils höchstens fünf Stichpunkten, genau zehn Selbsttestfragen mit Antworten.
+- Zweimal mit `pdflatex -interaction=nonstopmode -halt-on-error` gebaut; keine LaTeX-, Overfull- oder Underfull-Warnungen; keine Type-3-Schriften; alle Seiten visuell geprüft.
