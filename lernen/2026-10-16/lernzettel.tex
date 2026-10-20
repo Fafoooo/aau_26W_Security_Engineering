@@ -1,0 +1,198 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[OT1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper,margin=18mm,top=17mm,bottom=18mm]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[itemize]{leftmargin=4mm,itemsep=3pt,parsep=0pt,topsep=3pt}
+\titleformat{\section}{\Large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{0pt}{7pt}
+\newcommand{\block}[2]{\par\vspace{5pt}{\bfseries #1}\hfill{\scriptsize #2}\par\nopagebreak}
+\newcommand{\qa}[3]{\par\vspace{6pt}\textbf{#1. #2}\par\nopagebreak #3\par}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Security Engineering -- 16.10.2026}
+\fancyhead[R]{\small Lernzettel}
+\fancyfoot[L]{\scriptsize F = PDF-Seite in Lecture1; T = Transkript-Zeit}
+\fancyfoot[R]{\small\thepage}
+\setlength{\headheight}{14pt}
+\begin{document}
+\section*{1\quad Muss ich wissen}
+\block{Security Engineering und Systemgrenze}{F5--8,16; T1:41--6:55,13:08--15:13}
+\begin{itemize}
+\item \textbf{Security Engineering} baut Systeme, die trotz \textbf{malice, error and mischance} zuverlässig bleiben, und umfasst Entwurf, Implementierung, Tests sowie Anpassung an eine veränderte Umgebung.
+\item \textbf{System} bedeutet hier ausdrücklich Definition 6: Produkt und Hardware, Betriebssystem und Kommunikation, Anwendungen einschließlich Cloud, IT-Personal, interne Nutzer und Management sowie Kunden und externe Nutzer.
+\item \textbf{Interdisciplinary expertise} verbindet Business Processes, Software Engineering und Testing mit Kryptografie, Computer Security, Hardware-Schutz, Economics, Psychology, Organisation und Law.
+\item \textbf{Adversarial Thinking} untersucht frühere Angriffe, Zugangswege und Folgen, statt Security nur als Verhindern unerwünschter Ereignisse zu verstehen.
+\item \textbf{Typische Fehler} sind der Schutz falscher Assets, ungeeignete Schutzmaßnahmen und das Ignorieren menschlicher Komponenten oder der Usability.
+\end{itemize}
+\block{Workflow: vier Schritte in dieser Reihenfolge}{F10--14; T7:19--12:58}
+\begin{itemize}
+\item \textbf{Threat Model}: feststellen, wer warum und wie angreifen könnte, einschließlich Insidern, Outsidern, Menschen und Malware.
+\item \textbf{Security Policy}: festlegen, welche Schutzeigenschaften und Regeln für die Geschäftsziele gelten sollen.
+\item \textbf{Implementation}: passende Schutzmechanismen auswählen und umsetzen.
+\item \textbf{Assurance}: begründetes Vertrauen schaffen und auch Dritten nachweisen, dass die Schutzziele erreicht sind, statt nur ein Compliance-Zertifikat vorzuweisen.
+\end{itemize}
+\block{Subject, Person, Principal, Group und Role}{F17--19; T15:18--19:44}
+\begin{itemize}
+\item \textbf{Subject} ist in dieser Vorlesung eine natürliche Person in einer beliebigen Rolle, etwa Operator oder Victim.
+\item \textbf{Person} kann eine natürliche oder juristische Person sein, etwa ein Mensch oder eine Firma.
+\item \textbf{Principal} ist eine authentifizierbare Entität, die im Security System handelt, und kann auch eine Smartcard, ein Kommunikationskanal, eine Role oder ein Zusammenschluss sein.
+\item \textbf{Group} bezeichnet eine Menge von Principals, während eine \textbf{Role} eine Menge von Funktionen bezeichnet, die nacheinander verschiedene Personen übernehmen.
+\item \textbf{Abstraction Level} muss ausdrücklich genannt werden, weil Bobs Smartcard als Vertretung Bobs etwas anderes ist als Bob als Bediener von Alices Smartcard.
+\end{itemize}
+\block{Identity sowie trusted versus trustworthy}{F20--21; T19:44--22:08}
+\begin{itemize}
+\item \textbf{Identity} ist hier eine Zuordnung zwischen Namen zweier Principals, die dieselbe Person oder dasselbe Gerät bezeichnen, und nicht bloß ein Name.
+\item \textbf{Trusted} heißt, dass der Ausfall einer Komponente die Security Policy verletzen kann, während \textbf{trustworthy} laut Kursdefinition heißt, dass sie nicht versagt.
+\item \textbf{Trusted but not trustworthy} ist beispielsweise ein Geheimnisträger, der entgegen seiner Verpflichtung geheime Informationen verkauft.
+\end{itemize}
+
+\newpage
+\section*{1\quad Muss ich wissen -- Abgrenzungen}
+\block{Secrecy, Privacy, Confidentiality und Anonymity}{F22--23; T22:29--26:32}
+\begin{itemize}
+\item \textbf{Secrecy} bezeichnet das Verhindern von Informationsweitergabe.
+\item \textbf{Privacy} ist die Fähigkeit und/oder das Recht, persönliche Informationen und den persönlichen Raum vor Eingriffen zu schützen.
+\item \textbf{Confidentiality / non-disclosure} ist die Verpflichtung, anvertraute Geheimnisse anderer Personen oder Organisationen zu schützen.
+\item \textbf{Patientendaten}: das Schutzrecht des Patienten gehört zu Privacy, die Geheimhaltungspflicht des Arztes zu Confidentiality.
+\item \textbf{Anonymity} verhindert die Zuordnung einer Handlung zu einer Person, weshalb geheime Nachrichteninhalte allein nicht genügen und verräterische Metadaten sowie IP-Adressen relevant bleiben.
+\end{itemize}
+\block{Integrity, Authenticity, Availability und Security Failure}{F24; T26:42--28:09}
+\begin{itemize}
+\item \textbf{Integrity} sichert zu, dass Daten bei Speicherung oder Übertragung nicht verändert wurden.
+\item \textbf{Authenticity} bedeutet hier \textbf{Integrity + Freshness + Proof of Identity}, sodass ein echter Principal statt einer Wiederholung alter Nachrichten festgestellt wird.
+\item \textbf{Availability} bedeutet, dass autorisierte Nutzer bei Bedarf auf Daten und Netzwerkressourcen zugreifen können.
+\item \textbf{Security Failure} ist eine unerwünschte Verletzung der Security Policy eines Systems.
+\end{itemize}
+\block{Weakness, Vulnerability, Exploit und Threat}{F25--28; T28:24--35:19}
+\begin{itemize}
+\item \textbf{Weakness} ist eine Bedingung in einer Software- oder Hardwarekomponente, die zur Entstehung von Vulnerabilities beitragen kann.
+\item \textbf{Vulnerability} ist eine Schwäche des Systems oder seiner Umgebung, die zusammen mit einer internen oder externen Threat zu einem Security Failure führen kann.
+\item \textbf{Exploit} ist eine Methode oder ein Stück Code, das eine Vulnerability ausnutzt.
+\item \textbf{Threat} ist eine Handlung oder ein Ereignis mit möglicher negativer Systemwirkung, während ein \textbf{Threat Actor} eine Entität ist, die eine Threat verursachen, ausführen, übertragen, unterstützen oder ausnutzen kann.
+\item \textbf{CWE} katalogisiert Weakness-Typen wie \textbf{CWE-125: Out-of-bounds Read}, während \textbf{CVE} konkrete Vulnerabilities wie \textbf{CVE-2014-0160: Heartbleed} in OpenSSL bezeichnet.
+\end{itemize}
+\block{Policy, Target, Protection Profile und Hack}{F25,29--30; T28:24--29:03,35:53--39:32}
+\begin{itemize}
+\item \textbf{Security Policy (what)} ist eine knappe Schutzstrategie in Business Goals, etwa die Freigabe großer Banktransaktionen durch zwei Manager.
+\item \textbf{Security Target / Goal (how)} ist die detaillierte, produktspezifische Spezifikation der Schutzmittel und dient als Maßstab für die Implementation, ist aber noch nicht deren Umsetzung.
+\item \textbf{Protection Profile} beschreibt Anforderungen ausreichend geräteunabhängig, um verschiedene Produkte und Versionen vergleichend zu bewerten, und verbindet Policy und Target.
+\item \textbf{Protection} ist eine abstrakte Schutzeigenschaft wie Confidentiality oder Integrity.
+\item \textbf{Hack} ist nach der im Kurs verwendeten Definition etwas, das die Systemregeln erlauben, das die Designer aber weder vorgesehen noch gewollt haben.
+\end{itemize}
+
+\newpage
+\section*{2\quad Hinweise der Lehrperson}
+\block{Was für den Minitest lernen?}{T1:15--1:41; ergänzend F76--84}
+\begin{itemize}
+\item \textbf{Ausdrücklicher Hinweis im Transkript}: Alle heute behandelten Definitionen lernen, weil jede davon im Minitest vorkommen kann.
+\item \textbf{Erster Minitest}: Die Fragenfolien nennen den \textbf{23.10.2026} und kennzeichnen ihre Fragenliste ausdrücklich als \textbf{nicht vollständig}.
+\item \textbf{Schwerpunkt laut F84}: Definitionen und Fragen am Ende des Foliensatzes priorisieren, aber das gesamte Skript lernen.
+\item \textbf{Umfang laut F84}: fünf Minuten am Vorlesungsbeginn mit zwei bis drei Fragen, insbesondere Multiple Choice und Fill in Text.
+\item \textbf{Nicht dieses Mal laut F84}: Mathematical Computations, was keine generelle Befreiung von solchen Aufgaben für spätere Tests bedeutet.
+\end{itemize}
+\block{Organisation: im Transkript sinngemäß gesagt}{T0:00--1:09,9:28,35:19--35:37,42:09--42:37}
+\begin{itemize}
+\item \textbf{Bewertung}: Es gibt zwölf Minitest-Gelegenheiten und die neun besten zählen, während Final Project 25 und Poster/Presentation 30 Punkte bringen.
+\item \textbf{Anwesenheit}: Höchstens drei Termine fehlen und auf die Anwesenheitsliste achten, die während oder am Ende der Stunde herumgeht.
+\item \textbf{Themenwahl}: Ein Thema aus der Online-Liste auswählen und dort eintragen oder ein eigenes Wunschthema per E-Mail mit der Lehrperson absprechen.
+\item \textbf{Projektinformationen}: Details stehen in den Folien der vorherigen Einheit, während im Transkript keine konkrete Abgabefrist genannt wird.
+\item \textbf{Abgrenzung der Einheit}: Researchers und Tools sind für die nächste Einheit angekündigt, Hacktivism und Script Kiddies werden hier nicht behandelt und Security Policies/Targets folgen als Vertiefung.
+\end{itemize}
+\block{Quellenkonflikte nicht als Gewissheit lernen}{F3,84; T0:00--1:09}
+\begin{itemize}
+\item \textbf{Testmedium ungeklärt}: F3 sagt \glqq PEN + PAPER\grqq{}, F84 dagegen \glqq Moodle Quiz\grqq{}, und die vorliegende Mitschrift löst diesen Widerspruch nicht auf.
+\item \textbf{Ersatzprüfung laut F3}: Bei mehr als drei Fehlterminen oder weniger als 20 Minitest-Punkten ist eine Final Exam vorgesehen, wobei dies keine Aussage über eine gesicherte Bestehensgrenze ist.
+\end{itemize}
+
+\vspace{8pt}
+\section*{3\quad Gut zu wissen}
+\block{Threat Modeling ist eine Priorisierungsentscheidung}{F8--9,32--34; T5:23--7:19,40:08--41:10}
+\begin{itemize}
+\item \textbf{Assets} sind die schützenswerten Güter, deren Schutzbedarf zuerst geklärt werden muss.
+\item \textbf{Incentives und Capabilities} bestimmen, welche Gegner wahrscheinlich sind und welche Maßnahmen im konkreten Systemkontext passen.
+\item \textbf{Budget und Funktionalität} begrenzen den Schutz, weil nicht alle denkbaren Angriffe bei vertretbaren Kosten ausgeschlossen werden können.
+\item \textbf{Policy, Mechanism, Assurance und Incentives} beeinflussen sich gegenseitig, weshalb auch Schulung und passende Anreize der Betreiber zum Schutz gehören.
+\end{itemize}
+
+\newpage
+\section*{3\quad Gut zu wissen -- State Actors}
+\block{Five Eyes: Zugang zu Infrastruktur und Daten}{F36--47; T43:05--1:01:00}
+\begin{itemize}
+\item \textbf{Five Eyes / FVEY} sind USA, UK, Canada, Australia und New Zealand, deren \textbf{Platform Advantage} unter anderem aus gemeinsam nutzbarer Kommunikationsinfrastruktur entlang historischer Kabelrouten entsteht.
+\item \textbf{PRISM} steht im Kurs für Serverzugriff beziehungsweise \textbf{downstream collection}, während \textbf{TEMPORA} großflächigen Glasfaserzugriff beziehungsweise \textbf{upstream collection} bezeichnet.
+\item \textbf{XKEYSCORE} ist eine verteilte Suchmaschine über gesammelte Datenbestände, etwa für die Suche nach Kommunikation mit bestimmten Merkmalen.
+\item \textbf{Google-Rechenzentren}: Der im Kurs gezeigte historische Fall illustriert, dass SSL zum Frontend keinen Schutz für damals unverschlüsselte interne Datenverbindungen garantierte.
+\item \textbf{Operation Socialist} bezeichnet den im Kurs beschriebenen GCHQ-Angriff auf Belgacom und Roaming-Infrastruktur, während \textbf{Crypto Wars} Versuche zur Schwächung starker Kryptografie und Standards illustrieren.
+\end{itemize}
+\block{China: gezielte Angriffe und eigener Platform Advantage}{F48--53; T1:01:16--1:11:47}
+\begin{itemize}
+\item \textbf{Dalai Lama Hack (2008)} wird im Kurs als Spear-Phishing mit anschließend kompromittiertem Mailserver und schädlichen PDF-Anhängen der tibetischen Exilregierung beschrieben.
+\item \textbf{Google Hack (2009)} sollte laut Fallstudie über die Infrastruktur für behördliche Datenzugriffe feststellen, welche chinesischen Geheimdienstmitarbeiter den US-Behörden bereits bekannt waren.
+\item \textbf{OPM Hack (2015)} betraf die Datenbank mit sensiblen Angaben aus Security-Clearance-Verfahren und damit auch Informationen über mögliche Erpressbarkeit.
+\item \textbf{Belt and Road}, Telekommunikationsausbau, Plattformen und AI dienen laut Vorlesung der strategischen Schaffung eines eigenen Infrastruktur- und Plattformvorteils.
+\end{itemize}
+\block{Iran, North Korea und Russia: Fälle richtig zuordnen}{F54--60; T1:11:47--1:23:10}
+\begin{itemize}
+\item \textbf{Ohne vergleichbaren Platform Advantage} hebt der Kurs für diese Staaten insbesondere Spear-Phishing, Hacking und Information Warfare hervor.
+\item \textbf{Stuxnet} war ein Angriff \textbf{gegen Iran}, im Kurs USA und Israel zugeschrieben, bei dem ein Worm unter anderem über USB-Verbreitung Siemens-PLCs und damit Zentrifugenparameter manipulierte.
+\item \textbf{Sony Hack (2014)} wird North Korea zugeschrieben und als Reaktion auf \emph{The Interview} mit Veröffentlichung interner Daten und E-Mails beschrieben.
+\item \textbf{Ukraine Power Grid (2015)} verbindet in der Vorlesung Stromabschaltungen mit einem gleichzeitigen DoS auf Callcenter, wodurch auch Störungsmeldungen erschwert wurden.
+\item \textbf{Russische Operationen} umfassen in den Fallbeispielen NotPetya, den \textbf{SolarWinds Supply-Chain Attack (2020)} und Einflussoperationen mit Datenleaks und Troll Farms.
+\end{itemize}
+
+\newpage
+\section*{3\quad Gut zu wissen -- Motive und Ökosysteme}
+\block{Intelligence Doctrine: fünf Elemente}{F61; T1:23:10--1:23:27}
+\begin{itemize}
+\item \textbf{Collect}: Mehr und bessere Informationen als der Gegner sammeln.
+\item \textbf{Exploit}: Informationen zur Verbesserung der eigenen Position nutzen.
+\item \textbf{Undermine}: Moral, Institutionen und Allianzen des Gegners untergraben.
+\item \textbf{Disable}: Fähigkeiten des Gegners durch Sabotage ausschalten.
+\item \textbf{Preposition}: Eigene Mittel vorsorglich für einen möglichen Konflikt positionieren.
+\end{itemize}
+\block{Crooks: Geld als Incentive}{F62--64; T1:23:27--1:24:45}
+\begin{itemize}
+\item \textbf{Crooks} verfolgen vor allem finanziellen Gewinn, etwa durch Fraud, Scams oder Cryptocurrency Theft, statt primär einen staatlichen Intelligence Contest zu gewinnen.
+\item \textbf{Cybercrime Ecosystem} bedeutet Arbeitsteilung zwischen Bulk Attackers, Targeted Attackers, Tool- und Malware-Anbietern sowie Cashout Gangs.
+\item \textbf{Cashout Services / Money Mules} bewegen erbeutetes Geld über Konten und erschweren damit dessen Rückverfolgung.
+\end{itemize}
+\block{Ransomware: ergänzender Inhalt desselben Foliensatzes}{F63--66; nicht in der Mitschrift ausgeführt}
+\begin{itemize}
+\item \textbf{Ransomware} verschlüsselt laut Folien Opferdaten zur Lösegelderpressung und entwickelte sich von Massenangriffen auf private PCs zu groß angelegten Angriffen auf Unternehmen und Institutionen.
+\item \textbf{Cryptocurrencies} erleichtern laut Folien schwer rückverfolgbare Lösegeldzahlungen, und Ransomware wird als Wachstumsbereich seit 2020 genannt.
+\end{itemize}
+\block{The Swamp: Abuse statt Profit}{F67--71; in der Mitschrift nur als Kategorie genannt}
+\begin{itemize}
+\item \textbf{Abuse Incentives} stehen bei The Swamp im Vordergrund, etwa bei Hate Campaigns, Missbrauch in Beziehungen und School-/Workplace Bullying.
+\item \textbf{Weitere Folienbeispiele} sind Terrorism Recruitment und Child Sexual Abuse Material, nicht nur monetär motivierte Kriminalität.
+\end{itemize}
+\block{Social Media und AI: zusätzliche Folien, keine Mitschrift-Aussage}{F72--75,82--83}
+\begin{itemize}
+\item \textbf{Content Moderation} steht zwischen staatlichem Druck, hohen Filterkosten und Plattformentscheidungen, während Like/Share-Dynamiken schädliche Inhalte und öffentliche Beschämung verstärken können.
+\item \textbf{Gegenmaßnahmen} sind laut Folien teils technisch, teils politisch und teils eine Frage sozialer Normen.
+\item \textbf{AI-Agents: Tool or Actor?} wird als offene Frage nach Moral Agency und menschlicher Absicht diskutiert, wobei Freedom und Epistemic Competence als Bedingungen moralischer Verantwortung genannt werden.
+\item \textbf{Accountability} wird durch komplizierte Lieferketten und verteilte Verantwortlichkeiten erschwert, weshalb die Folien AI nicht einfach eindeutig als eigenständigen Täter einordnen.
+\end{itemize}
+
+\newpage
+\section*{4\quad Selbsttest -- zehn kurze Fragen}
+{\small Auswahl im Stil von F77--83; Antworten entsprechen den Definitionen dieses Kurses.}
+\qa{1}{Was ist Security Engineering?}{Systeme trotz \textbf{malice, error and mischance} zuverlässig halten, einschließlich Entwurf, Implementation, Tests und Anpassung an Veränderungen.}
+\qa{2}{Welche vier Schritte hat der Workflow?}{\textbf{Threat Model $\rightarrow$ Security Policy $\rightarrow$ Implementation $\rightarrow$ Assurance}: Gegner analysieren, Schutzziele festlegen, Mechanismen umsetzen und Zielerreichung auch Dritten nachweisen.}
+\qa{3}{Wie unterscheiden sich Subject, Person und Principal?}{\textbf{Subject}: natürliche Person; \textbf{Person}: natürliche oder juristische Person; \textbf{Principal}: authentifizierbare, im Security System handelnde Entität, auch ein Gerät oder eine Role.}
+\qa{4}{Was bedeutet trusted, was trustworthy?}{\textbf{Trusted}: Der Ausfall kann die Policy brechen; \textbf{trustworthy}: Die Komponente versagt laut Kursdefinition nicht.}
+\qa{5}{Wie unterscheiden sich Privacy, Confidentiality und Anonymity?}{\textbf{Privacy}: persönliches Schutzrecht beziehungsweise Schutzfähigkeit; \textbf{Confidentiality}: Geheimhaltungspflicht gegenüber anderen; \textbf{Anonymity}: keine Zuordnung einer Handlung zu einer Person.}
+\qa{6}{Welche drei Teile umfasst Authenticity hier?}{\textbf{Integrity + Freshness + Proof of Identity}: Die Daten sind unverändert und frisch, und der nachgewiesene Principal ist echt statt nur durch eine wiederholte alte Nachricht vorgetäuscht.}
+\qa{7}{Weakness, Vulnerability, Exploit: welche Unterschiede?}{\textbf{Weakness}: potenziell problematische Bedingung; \textbf{Vulnerability}: Schwäche, die mit einer Threat zum Security Failure führen kann; \textbf{Exploit}: Methode oder Code zur Ausnutzung.}
+\qa{8}{Wie unterscheiden sich Policy, Target und Protection Profile?}{\textbf{Policy}: Schutzziel in Business Goals; \textbf{Target}: produktspezifische Spezifikation der Mittel; \textbf{Protection Profile}: geräteunabhängig genug für vergleichende Produktbewertungen.}
+\qa{9}{Wer sind die Five Eyes und was ist PRISM?}{\textbf{USA, UK, Canada, Australia, New Zealand}; \textbf{PRISM} bezeichnet im Kurs Serverzugriff als downstream collection und ist von TEMPORAs upstream collection an Glasfasern zu unterscheiden.}
+\qa{10}{Welche Motive unterscheiden States, Crooks und The Swamp?}{\textbf{States}: Informations- und Machtvorteile sowie Sabotage und Konfliktvorsorge; \textbf{Crooks}: finanzieller Gewinn; \textbf{The Swamp}: Abuse, etwa Belästigung und Hasskampagnen.}
+\end{document}
