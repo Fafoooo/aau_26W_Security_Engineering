@@ -1,0 +1,203 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[OT1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper,left=17mm,right=17mm,top=19mm,bottom=18mm]{geometry}
+\usepackage{microtype,enumitem,titlesec,fancyhdr,amsmath}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist[itemize]{leftmargin=4.5mm,itemsep=2pt,parsep=0pt,topsep=3pt}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{4pt}{6pt}
+\newcommand{\block}[2]{\par\vspace{5pt}\textbf{#1}\hfill{\scriptsize #2}\par\nopagebreak}
+\newcommand{\qa}[3]{\par\vspace{8pt}\textbf{#1. #2}\par\nopagebreak #3\par}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Security Engineering -- Lecture 2 -- 23.10.2026}
+\fancyhead[R]{\small Lernzettel}
+\fancyfoot[L]{\scriptsize F = PDF-Seite in Lecture 2; nur Folien, kein passendes Transkript vorhanden.}
+\fancyfoot[R]{\small\thepage}
+\setlength{\headheight}{14pt}
+\begin{document}
+\section*{1\quad Muss ich wissen}
+\block{Zero-Day, N-Day, Exploit, Payload}{F8--9,18; Fragen F64--65}
+\begin{itemize}
+\item Eine \textbf{Zero-Day Vulnerability} ist laut Kurs eine Schwachstelle, die den Entwicklern oder den für ihre Behebung zuständigen Personen unbekannt ist.
+\item Eine \textbf{N-Day Vulnerability} ist bekannt und öffentlich offengelegt, aber auf dem betroffenen System noch nicht gepatcht.
+\item Ein \textbf{Exploit} nutzt eine Schwachstelle aus, um ein Zielsystem zu kompromittieren, etwa für Malware-Installation oder Datendiebstahl.
+\item Ein \textbf{Payload} ist die gewünschte Aktion nach dem Eindringen, während der Exploit den Weg hinein bereitstellt.
+\item \textbf{Patching Grace Period} bezeichnet die zugestandene Zeit zur Bereitstellung eines Fixes, bevor ein System als non-compliant oder besonders gefährdet gilt.
+\end{itemize}
+\block{Vulnerability Lifecycle: Ablauf und Angriffszeitpunkte}{F9,23,26; Frage F64}
+\begin{itemize}
+\item Der dargestellte \textbf{Disclosure-Pfad} lautet Vulnerability $\rightarrow$ Meldung $\rightarrow$ Patch $\rightarrow$ Public Disclosure $\rightarrow$ mögliche Post-Patch Exploitation.
+\item Ein \textbf{Zero-Day Exploit} kann vor der Behebung eingesetzt werden, während \textbf{Post-Patch Exploitation} weiterhin ungepatchte Systeme trifft.
+\item Die Entscheidung \textbf{Disclose oder Exploit} ist im Diagramm eine Verzweigung und kein zwangsläufiger linearer Ablauf.
+\end{itemize}
+\block{White, Gray und Black Market}{F24--25; Frage F64}
+\begin{itemize}
+\item Im \textbf{White Market} werden Schwachstellen an Hersteller gemeldet, etwa gegen eine \textbf{Bug Bounty}, also eine Prämie für einen Schwachstellenbericht.
+\item Im \textbf{Gray Market} kaufen vor allem staatliche Stellen Zero-Days zur Nutzung, Bevorratung oder Weitergabe an Hersteller.
+\item Im \textbf{Black Market} kaufen kriminelle Gruppen bevorzugt einsatzfähige Exploit-Software und nutzen auch Schwachstellen mit bereits verfügbarem Patch.
+\item Die Folien kontrastieren \textbf{Good Geeks} mit Responsible Disclosure und Anerkennung als Anreiz mit \textbf{Bad Geeks}, die für Geld an Staaten oder Kriminelle verkaufen.
+\end{itemize}
+\block{Responsible, Full und Coordinated Disclosure}{F26--27,32; Fragen F66}
+\begin{itemize}
+\item \textbf{Responsible Disclosure} bedeutet entdecken, vertraulich melden, Patch entwickeln lassen und anschließend veröffentlichen, gegebenenfalls nach einer vereinbarten Frist auch ohne fertigen Patch.
+\item \textbf{Full Disclosure} überspringt im Folienmodell die vertrauliche Meldung und die vorgelagerte Patch-Entwicklung und veröffentlicht die Schwachstelle direkt.
+\item \textbf{Coordinated Disclosure} stimmt mehrere betroffene Parteien ab, damit die frühe Veröffentlichung eines einzelnen Patches nicht die übrigen Systeme verrät.
+\item Ein \textbf{CERT} unterstützt die vertrauliche Meldung und Koordination, wobei die Folien beispielhaft Disclosure-Fenster von 45 oder 90 Tagen nennen.
+\end{itemize}
+
+\newpage
+\section*{1\quad Muss ich wissen -- Tools und Fallstudien}
+\block{ASLR und DEP: unterschiedliche Schutzideen}{F14--17; Frage F65}
+\begin{itemize}
+\item \textbf{Address-Space Layout Randomisation (ASLR)} verändert die Position wichtiger Speicherbereiche zufällig und erschwert das Vorhersagen von Adressen.
+\item \textbf{Data Execution Prevention (DEP)} verhindert die Ausführung von Code aus als nicht ausführbar markierten Datenbereichen wie Stack oder Heap.
+\item \textbf{Merke}: ASLR erschwert das Finden der Zieladresse, DEP erschwert das Ausführen eingeschleusten Codes im Datenspeicher.
+\end{itemize}
+\block{Classic vs.\ Agentic Security Tools: drei Dimensionen}{F20--22; Frage F66}
+\begin{itemize}
+\item \textbf{Action Space}: Klassische Tools haben üblicherweise aufzählbare Aktionen, während LLM-Agenten unbestimmte Entscheidungen und Aktionsfolgen erzeugen.
+\item \textbf{Impact}: Klassische Tools wirken überwiegend deterministisch und im konfigurierten Zielbereich, während die Auswirkungen agentischer Tools unbestimmter sind.
+\item \textbf{Operator Population}: Klassische Tools verlangen Bedien- und Interpretationskompetenz, während Agenten offensive Fähigkeiten einer breiteren Nutzergruppe zugänglich machen.
+\item \textbf{AI-Herausforderung}: Schnellere Exploit-Entwicklung und mehr Schwachstellen verkürzen die praktische Patching Grace Period.
+\item \textbf{Bug-Bounty-Herausforderung}: Report Flooding und AI Slop erhöhen den Prüfaufwand und können Meldesysteme überlasten.
+\end{itemize}
+\block{Stuxnet: kombinierter Angriff statt einzelner Wunderwaffe}{F11,37; Frage F65}
+\begin{itemize}
+\item Die \textbf{Stuxnet-Fallstudie} beschreibt einen gegen das iranische Nuklearprogramm gerichteten Angriff über eine mit USB beginnende Infektionskette.
+\item Die \textbf{Angriffskette} kombinierte Social Engineering, Zero-Days und alte ungepatchte Software einschließlich industrieller Steuerungstechnik.
+\end{itemize}
+\block{Heartbleed: lesen über die Puffergrenze}{F28--29; Frage F65}
+\begin{itemize}
+\item \textbf{Heartbleed} betraf OpenSSL und entstand, weil die behauptete Länge eines Heartbeat-Payloads nicht mit der tatsächlichen Länge abgeglichen wurde.
+\item Der \textbf{Buffer Over-read} konnte fremden Speicherinhalt einschließlich privater Schlüssel offenlegen.
+\item Die \textbf{Reaktion} umfasste Patch und Key Rotation, während vorzeitiges Patchen die Schwachstelle anderen Angreifern verraten konnte.
+\end{itemize}
+\block{Spectre und Meltdown: Side Channels und Tarnung}{F30--32; Frage F65}
+\begin{itemize}
+\item \textbf{Spectre} nutzt beobachtbare Cache-Effekte spekulativer Ausführung nach einer Branch Misprediction, um private Daten über Timing zu erschließen.
+\item \textbf{Meltdown} kann unberechtigt gelesene Daten aus den Cache-Effekten vorübergehender Out-of-order Execution rekonstruieren.
+\item \textbf{Kernel Page-Table Isolation / KAISER} wurde zunächst als Schutz gegen ein begrenztes Adressleck dargestellt, um die größere Schwachstelle während der Koordination nicht vorzeitig offenzulegen.
+\end{itemize}
+\block{PHP2Shell: Aussage der Vorlesungsfallstudie}{F33; Frage F65}
+\begin{itemize}
+\item Laut \textbf{Folie} führten Leaks und vorzeitig veröffentlichte Patches dazu, dass Angreifer die Änderungen analysieren und noch vor dem geplanten Release angreifen konnten.
+\item Das \textbf{Lehrbeispiel} betont Angriffe unmittelbar nach Patch-Veröffentlichung und damit ein stark schrumpfendes Reaktionsfenster.
+\end{itemize}
+
+\newpage
+\section*{1\quad Muss ich wissen -- Security Policy und MLS}
+\block{Threat Model, Policy, Model}{F4,40,42; Fragen F67}
+\begin{itemize}
+\item Das \textbf{Threat Model} fragt, wer warum und wie angreifen könnte, bevor Policy, Implementation und Assurance festgelegt werden.
+\item Eine \textbf{Security Policy} formuliert Schutzziele kurz in normaler Sprache, typischerweise auf weniger als einer Seite.
+\item Ein \textbf{Security Model} beschreibt eine Security Policy formal, etwa im Bell-LaPadula-Modell.
+\item Die \textbf{Insider Threat} der Fallstudien ist ein illoyaler Mitarbeiter oder Malware auf dessen Gerät.
+\end{itemize}
+\block{Multilevel Security (MLS): vertikale Informationsflüsse}{F43--47; Fragen F67}
+\begin{itemize}
+\item \textbf{MLS} ordnet Objects einer Classification $L(O)$ und Principals einer Clearance $L(S)$ zu, um \textbf{Confidentiality} zu schützen.
+\item Die gezeigte \textbf{Hierarchie} lautet Top Secret $>$ Secret $>$ Confidential $>$ Official.
+\item Informationsflüsse sollen \textbf{nach oben statt nach unten} verlaufen, damit hoch eingestufte Inhalte nicht in niedriger eingestufte Bereiche gelangen.
+\end{itemize}
+\block{Bell-LaPadula (BLP): die Regeln sicher unterscheiden}{F47--48; Fragen F67}
+\begin{itemize}
+\item \textbf{Simple Security Property -- No Read Up}: Die Level-Bedingung für Lesen ist $L(O)\leq L(S)$.
+\item \textbf{*-Property -- No Write Down}: Die Level-Bedingung für Schreiben ist $L(S)\leq L(O)$.
+\item \textbf{Discretionary Security Property}: Zusätzlich müssen Zugriffsrechte in einer Access Matrix den Zugriff erlauben.
+\item \textbf{Tranquillity Principle}: Die Einstufung eines Subject oder Object ändert sich nicht, während darauf Bezug genommen wird.
+\item Ein \textbf{sicherer Zustand} erlaubt nur Zugriffstupel $(S,O,A)$, die Simple Security, *-Property und Discretionary Security erfüllen.
+\end{itemize}
+\block{Basic Security Theorem: was wirklich bewiesen wird}{F48; Fragen F67}
+\begin{itemize}
+\item \textbf{Basic Security Theorem}: Sind der Anfangszustand und alle Zustandsübergänge sicher, bleibt das System immer in sicheren Zuständen.
+\item Die Folien definieren einen \textbf{sicheren Übergang} als Übergang von einem sicheren Zustand in einen anderen sicheren Zustand.
+\end{itemize}
+\block{Trusted Computing Base und praktische BLP-Grenzen}{F49--50; Fragen F67}
+\begin{itemize}
+\item Die \textbf{Trusted Computing Base (TCB)} umfasst Hardware, Software und Verfahren, deren Versagen die Security Policy brechen könnte.
+\item \textbf{Memory Management}, Backup, Recovery und Kommunikation brauchen teilweise Zugriffe über mehrere Levels und vergrößern dadurch die TCB.
+\item Eine \textbf{große TCB} wie im Multics-Beispiel ist schwer mathematisch zu verifizieren.
+\item Der \textbf{License-Server-Fall} zeigt, dass eine Höherstufung für ein Kriegsschiffprojekt Nutzer eines niedrig eingestuften Handelsschiffprojekts aussperren kann.
+\end{itemize}
+
+\newpage
+\section*{1\quad Muss ich wissen -- Covert und Lateral Flows}
+\block{Covert Channels: am vorgesehenen Kanal vorbei}{F51--52; Frage F67}
+\begin{itemize}
+\item Ein \textbf{Covert Channel} überträgt Informationen über Ressourcen, die nicht als Kommunikationskanal vorgesehen sind.
+\item Ein \textbf{Timing Channel} kann durch veränderte CPU-Last signalisieren, ein \textbf{Storage Channel} durch Belegen von Plattenplatz.
+\item Damit kann \textbf{High nach Low} Informationen signalisieren, obwohl der offizielle BLP-Zugriff diesen Fluss verbietet.
+\item \textbf{Gegenmaßnahmen} sind geringere Kanalbandbreite oder mehr Rauschen, während eine Data Diode Datenfluss hardwareseitig auf eine Richtung beschränkt.
+\end{itemize}
+\block{Multilateral Security und Lattice Model}{F55--56; Fragen F68}
+\begin{itemize}
+\item \textbf{Vertical Control} trennt höhere von niedrigeren Security Levels, \textbf{Lateral Control} trennt Bereiche auch bei gleicher Clearance.
+\item \textbf{Multilateral Security} verhindert unerwünschte horizontale Informationsflüsse zwischen Abteilungen, konkurrierenden Mandanten oder medizinischen Zuständigkeitsbereichen.
+\item Ein \textbf{Lattice Model} ergänzt Compartments beziehungsweise Labels und benötigt nur eine partielle Ordnung statt einer einzigen linearen Hierarchie.
+\end{itemize}
+\block{UK/Scotland Medical Records: warum die Kontrolle scheiterte}{F57--59; Frage F68}
+\begin{itemize}
+\item Die \textbf{Fallstudie} beschreibt den Übergang von dezentralen Papierakten zu breit vernetzten Patientendaten mit rollen- und beziehungsbasiertem Zugriff.
+\item \textbf{Receptionists} erhielten zur Identitätsprüfung zu weitreichende Rechte und konnten dadurch auch vertrauliche psychiatrische Informationen lesen.
+\item Die \textbf{Lehre} ist granularer, sorgfältig entworfener Zugriff statt pauschaler Rechte nach Rolle.
+\item \textbf{Anonymization} ist schwierig, weil öffentliche und private Informationen in medizinischen Daten miteinander verknüpft sind.
+\item \textbf{OpenSAFELY} wird als positives Forschungsbeispiel genannt, bei dem Forschende keine Patientendaten herunterladen und Analysen in der Cloud erfolgen.
+\end{itemize}
+\block{Chinese Wall, Delegation, Honeypots}{F60--62; Fragen F68}
+\begin{itemize}
+\item Das \textbf{Chinese Wall Model} verhindert Informationsflüsse zwischen konkurrierenden Parteien und damit Interessenkonflikte bei wechselnden Kundenbeziehungen.
+\item Das \textbf{Beispiel} ist eine Beratungs-, Bank- oder Anwaltsbeziehung, bei der die Arbeit für eine Firma zeitweise die Arbeit für deren Wettbewerber ausschließt.
+\item \textbf{Delegation} überträgt Befugnisse, Verantwortung oder Entscheidungen mit festgelegten Grenzen und Accountability.
+\item Das \textbf{Delegation-Beispiel} ist ein zeitlich begrenzter Zugriff auf Patientendaten nach Freigabe über die e-card.
+\item Ein \textbf{Honeypot} ist ein überwachtes Ködersystem, etwa eine falsche Prominentenakte, das unerlaubte Zugriffe von Insidern sichtbar machen soll.
+\end{itemize}
+
+\newpage
+\section*{2\quad Hinweise der Lehrperson}
+\block{Quellenlücke: ausschließlich Hinweise aus Folien}{F63,69}
+\begin{itemize}
+\item Für \textbf{Lecture 2 am 23.10.2026} liegt kein passendes Transkript vor, deshalb sind mündliche Schwerpunkte, Ausschlüsse und Terminänderungen nicht überprüfbar.
+\item \textbf{F63} nennt den zweiten Minitest am \textbf{30.10.2026} mit dem Zusatz \glqq no class\grqq{} und alternativ \textbf{3.11.2026 (tba)} oder \glqq after next class\grqq{}, also noch keine eindeutig bestätigte Ersatzzeit.
+\item \textbf{F69} nennt fünf Minuten zu Vorlesungsbeginn und ein Moodle Quiz mit zwei bis drei Fragen, vor allem Definitionen sowie True/False, Multiple Choice, Lückentext oder mathematische Rechnungen.
+\item \textbf{Lernfokus laut F69} sind die Questions-Folien F64--68, aber das ganze Skript soll gelernt werden, sodass andere Inhalte nicht ausdrücklich ausgeschlossen sind.
+\item \textbf{Wertung laut F69}: zwölf Minitests zu je fünf Punkten, von denen die neun besten mit maximal 45 Punkten zählen.
+\end{itemize}
+\section*{3\quad Gut zu wissen}
+\block{Patching, Incentives und Systemkontext}{F34--38}
+\begin{itemize}
+\item \textbf{Bekannte Lücken} bleiben wichtig, weil nicht eingespielte Patches auch ohne neue Zero-Days ausnutzbare Systeme zurücklassen.
+\item \textbf{Operational Technology} lässt sich wegen Ausfallzeiten, Inkompatibilitäten oder notwendiger Rezertifizierung nicht immer sofort patchen.
+\item \textbf{Usability und Incentives} beeinflussen Updates und Nutzerverhalten, weshalb Systeme auch mit menschlichen Fehlhandlungen funktionieren müssen.
+\end{itemize}
+\block{Composability und begrenzte Sicht}{F53--54}
+\begin{itemize}
+\item \textbf{Composability}: Sichere Einzelkomponenten ergeben nicht automatisch ein sicheres Gesamtsystem.
+\item \textbf{Consistency}: Die Folien stellen Cover Stories für niedrige Einstufungen dem Zurückhalten höher eingestufter Informationen gegenüber.
+\end{itemize}
+\block{Practical Part at Home: ergänzender Anhang, nicht ROP}{F71--83}
+\begin{itemize}
+\item \textbf{Stack} enthält typischerweise lokale Variablen und Aufrufinformationen, während \textbf{Heap}-Speicher dynamisch reserviert und explizit freigegeben wird.
+\item \textbf{malloc} reserviert Speicher, ein Pointer speichert dessen Adresse, \texttt{*p} greift auf den Inhalt zu und \textbf{free} beendet die Lebensdauer der Reservierung.
+\item \textbf{Buffer Overflow} überschreitet eine Puffergrenze und kann benachbarte sicherheitsrelevante Daten beschädigen, ohne dass ein bestimmtes Ergebnis garantiert ist.
+\item \textbf{Use-after-free} greift über einen Dangling Pointer auf Speicher mit beendeter Lebensdauer zu und kann Daten offenlegen oder verändern.
+\item \textbf{Data Corruption} verändert Daten, während \textbf{Control-flow Hijacking} den Ausführungspfad verändert, etwa über einen manipulierten Function Pointer.
+\end{itemize}
+
+\newpage
+\section*{4\quad Selbsttest -- 10 kurze Fragen mit Antworten}
+\qa{1}{Was unterscheidet eine Zero-Day von einer N-Day Vulnerability?}{\textbf{Antwort:} Zero-Day ist den für die Behebung Zuständigen unbekannt; N-Day ist öffentlich bekannt, auf dem betroffenen System aber ungepatcht.\hfill{\scriptsize F8--9,64}}
+\qa{2}{Was unterscheidet Exploit und Payload?}{\textbf{Antwort:} Der Exploit nutzt die Schwachstelle zum Eindringen; der Payload führt die beabsichtigte Aktion aus.\hfill{\scriptsize F18,65}}
+\qa{3}{Wie unterscheiden sich White, Gray und Black Market?}{\textbf{Antwort:} White bedeutet Meldung an Hersteller beziehungsweise Bug Bounty, Gray Verkauf vor allem an staatliche Stellen, Black krimineller Handel mit einsatzfähigen Angriffswerkzeugen.\hfill{\scriptsize F24--25,64}}
+\qa{4}{Was unterscheidet Responsible von Full Disclosure?}{\textbf{Antwort:} Responsible sieht vertrauliche Meldung und Zeit zur Behebung vor; Full veröffentlicht ohne diese vorgeschalteten Schritte.\hfill{\scriptsize F26,66}}
+\qa{5}{Welche drei Dimensionen ändern sich bei Agentic Tools?}{\textbf{Antwort:} Action Space, Impact und Operator Population werden unbestimmter beziehungsweise offensive Fähigkeiten breiter zugänglich.\hfill{\scriptsize F20--22,66}}
+\qa{6}{Welche unterschiedlichen Hürden setzen ASLR und DEP?}{\textbf{Antwort:} ASLR erschwert Adressvorhersagen; DEP verhindert die Codeausführung aus nicht ausführbaren Datenbereichen.\hfill{\scriptsize F16--17,65}}
+\qa{7}{Wie heißen die zwei BLP-Level-Regeln samt Formeln?}{\textbf{Antwort:} No Read Up verlangt $L(O)\leq L(S)$; No Write Down verlangt $L(S)\leq L(O)$, zusätzlich zur Access Matrix.\hfill{\scriptsize F47,67}}
+\qa{8}{Was ist ein Covert Channel in MLS?}{\textbf{Antwort:} Ein nicht vorgesehener Kommunikationsweg über gemeinsam genutzte Ressourcen, etwa CPU-Timing oder Plattenbelegung, der Informationen von High nach Low signalisieren kann.\hfill{\scriptsize F51,67}}
+\qa{9}{Warum scheiterte der Zugriffsschutz im Medical-Records-Fall?}{\textbf{Antwort:} Receptionists bekamen zur Identitätsprüfung zu breite Leserechte einschließlich vertraulicher psychiatrischer Daten.\hfill{\scriptsize F58--59,68}}
+\qa{10}{Wie unterscheiden sich Chinese Wall, Delegation und Honeypot?}{\textbf{Antwort:} Chinese Wall trennt konkurrierende Interessen, Delegation überträgt begrenzte Befugnisse und ein Honeypot macht unerlaubte Zugriffe auf einen Köder sichtbar.\hfill{\scriptsize F60--62,68}}
+\end{document}
