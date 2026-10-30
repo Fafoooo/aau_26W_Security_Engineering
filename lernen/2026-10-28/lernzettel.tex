@@ -1,0 +1,243 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper,margin=18mm,footskip=9mm]{geometry}
+\usepackage{amsmath,amssymb,enumitem}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[itemize]{leftmargin=4mm,itemsep=3pt,topsep=3pt,parsep=0pt}
+\newcommand{\block}[2]{\subsection*{#1\hfill{\normalfont\small #2}}}
+\newcommand{\qa}[3]{\par\vspace{4pt}\textbf{#1. #2}\par #3\par}
+\pagestyle{plain}
+\begin{document}
+\raggedright
+\setlength{\emergencystretch}{2em}
+{\Large\bfseries Security Engineering -- Lecture 3}\par
+{\small 28.10.2026\quad Bookkeeping/Banking, Threat Models\quad Nur Folien; kein passendes Transkript.}
+
+\section*{1\quad Muss ich wissen}
+{\small Auswahl nach den Fragenfolien auf PDF-S.\,70--74; alle Seitenangaben beziehen sich auf das 77-seitige PDF.}
+
+\block{Security Policy oder Security Model?}{S.\,3--7}
+\begin{itemize}
+\item Eine \textbf{Security Policy} beschreibt die Schutzziele knapp in natürlicher Sprache, während ein \textbf{Security Model} sie formal beschreibt.
+\item Die drei Fallstudien betrachten \textbf{Insider Threats}, etwa illoyale Beschäftigte oder Malware auf deren Geräten.
+\item Das \textbf{Basic Security Theorem} besagt, dass ein sicherer Anfangszustand und ausschließlich sichere Zustandsübergänge die Sicherheit aller erreichten Zustände gewährleisten.
+\end{itemize}
+
+\block{Bell--LaPadula: Confidentiality}{S.\,6--7}
+\begin{itemize}
+\item \textbf{Security Levels} ordnen die Clearance eines Subjects $S$ und die Classification eines Objects $O$ mit den Bezeichnungen $L(S)$ und $L(O)$.
+\item \textbf{No read up}: Lesen verlangt $L(O)\leq L(S)$, sodass ein Subject keine höher klassifizierten Daten lesen darf.
+\item \textbf{No write down}: Schreiben verlangt $L(S)\leq L(O)$, sodass höher klassifizierte Informationen nicht nach unten gelangen.
+\item Die \textbf{Discretionary Security Property} verlangt zusätzlich passende Zugriffsrechte in einer Access Matrix.
+\item Das \textbf{Tranquillity Principle} hält die Classification eines Subjects oder Objects während seiner Referenzierung unverändert.
+\end{itemize}
+
+\block{Biba: Integrity statt Confidentiality}{S.\,19--20}
+\begin{itemize}
+\item Das \textbf{Biba Model} schützt Integrity und verwendet gegenüber BLP die umgekehrte Flussrichtung.
+\item \textbf{No read down}: Lesen verlangt $L(O)\geq L(S)$, damit niedrigere Integrity keine höhere verunreinigt.
+\item \textbf{No write up}: Schreiben verlangt $L(S)\geq L(O)$, damit niedrigere Integrity keine höher eingestuften Daten verändert.
+\item \textbf{Datenfluss} ist im gezeigten Modell nur von hoher zu niedriger Integrity erlaubt, etwa zwischen Safety-, Monitoring- und Enterprise-Ebene.
+\end{itemize}
+
+\block{Multilateral Security: seitlich abschotten}{S.\,11--18}
+\begin{itemize}
+\item \textbf{Vertical Access Control} trennt hierarchische Stufen, während \textbf{lateral} Informationsflüsse zwischen Bereichen derselben Clearance begrenzt.
+\item Das \textbf{Lattice Model} ergänzt Compartments und Labels, wobei BLP nur eine partielle Ordnung statt einer einzigen linearen Rangfolge benötigt.
+\item Das \textbf{Chinese Wall Model} trennt konkurrierende Kunden oder Organisationseinheiten, um Interessenkonflikte zu verhindern.
+\item \textbf{Delegation} überträgt Befugnisse unter Einschränkungen und Verantwortlichkeit, etwa als zeitlich begrenzten Zugriff auf Patientendaten.
+\item Ein \textbf{Honeypot} lockt Angreifer oder regelwidrig handelnde Insider zu einem überwachten Ködersystem, etwa einer falschen Prominentenakte.
+\end{itemize}
+
+\newpage
+\block{Clark--Wilson: kontrollierte Datenänderungen}{S.\,25--27}
+\begin{itemize}
+\item \textbf{Constrained Data Items (CDI)} sind integritätsgeschützte Daten wie Kontostände, während \textbf{Unconstrained Data Items (UDI)} nicht diesen Integritätsauflagen unterliegen.
+\item Eine \textbf{Transformation Procedure (TP)} verändert CDI ausschließlich so, dass deren Integrity erhalten bleibt.
+\item Eine \textbf{Integrity Validation Procedure (IVP)} prüft, ob die CDI die Integritätsbedingungen erfüllen.
+\item Erlaubte \textbf{Triples (Subject, TP, CDI)} begrenzen, wer welche Prozedur auf welche Daten anwenden darf, und unterstützen Separation of Duty.
+\item Weitere Regeln verlangen \textbf{Authentication}, rekonstruierbare Änderungen im \textbf{Audit Trail}, kontrollierte UDI-zu-CDI-Überführung und besondere Subjects zum Ändern der Triples.
+\end{itemize}
+
+\block{Bookkeeping und Separation of Duty}{S.\,22, 25--28}
+\begin{itemize}
+\item \textbf{Double-entry Bookkeeping} ordnet jeder Buchung eine entgegengesetzte Buchung zu, damit sich die Bücher auf Konsistenz prüfen lassen.
+\item Im \textbf{Clark--Wilson-Beispiel} erhöht eine TP einen Kontostand um denselben Betrag, um den sie einen anderen senkt.
+\item \textbf{Separation of Duty} verhindert, dass eine einzelne Person einen kritischen Prozess vollständig kontrolliert.
+\item \textbf{Serial} trennt aufeinanderfolgende Arbeit und Kontrolle, während \textbf{parallel} mehrere Freigaben vor einer großen irreversiblen Aktion verlangt.
+\end{itemize}
+
+\block{Agency Problem und Internal Controls}{S.\,30--33}
+\begin{itemize}
+\item Das \textbf{Agency Problem} entsteht, weil Beschäftigte ihren eigenen Nutzen statt zwingend den des Arbeitgebers maximieren.
+\item \textbf{Internal Controls} müssen neben Fraud auch Nepotism und Empire-building berücksichtigen und Anreize sowie Sanktionen einbeziehen.
+\item \textbf{Balancing Books} allein genügt nicht, weil formal passende Bücher beispielsweise erfundene Geschäftspartner nicht ausschließen.
+\item \textbf{Threat Modelling} soll Beschäftigte direkt einbeziehen, weil sie organisatorische Schwachstellen kennen.
+\end{itemize}
+
+\block{OCTAVE: kritische Assets zuerst}{S.\,38}
+\begin{itemize}
+\item \textbf{OCTAVE} steht für \textbf{Operationally Critical Threat, Asset, and Vulnerability Evaluation} und fokussiert die wichtigsten Assets einer Organisation.
+\item \textbf{Organizational View} erfasst Assets, Threats, Schutzlücken und Risiken; \textbf{Technological View} untersucht Schwachstellen der Infrastruktur.
+\item \textbf{Strategy and Plan Development} priorisiert verbleibende Risiken und plant deren langfristige Behandlung.
+\end{itemize}
+
+\block{PASTA: sieben Stufen in fester Reihenfolge}{S.\,39}
+\begin{itemize}
+\item \textbf{PASTA} steht für \textbf{Process for Attack Simulation \& Threat Analysis}.
+\item Zuerst kommen \textbf{1 Define the Objectives}, \textbf{2 Define the Technical Scope} und \textbf{3 Decompose the Application}.
+\item Danach folgen \textbf{4 Analyze the Threats}, \textbf{5 Vulnerability Analysis} und \textbf{6 Attack Analysis}.
+\item Den Abschluss bildet \textbf{7 Risk and Impact Analysis}, wobei Standardmethoden an die Organisation angepasst werden sollen.
+\end{itemize}
+
+\newpage
+\block{System Model und Data Flow Diagram}{S.\,41--47}
+\begin{itemize}
+\item Ein \textbf{System Model} beantwortet, was gebaut wird, und erfasst Stakeholders, Assets und Prozesse als Grundlage der Threat-Analyse.
+\item \textbf{BPML}-Diagramme zeigen Business Workflows, während \textbf{UML Use Case Diagrams} Actors, Use Cases, Systemgrenzen und Beziehungen darstellen.
+\item Ein \textbf{DFD} enthält External Entities als Rechtecke, Processes als Kreise oder abgerundete Rechtecke, Data Stores als parallele Linien oder offene Rechtecke sowie Data Flows als Verbindungspfeile.
+\item Ein \textbf{Logical DFD} beschreibt benötigte Datenflüsse ohne Implementierungsdetails, während ein \textbf{Physical DFD} Software, Hardware und Dateien einbezieht.
+\item \textbf{Trust Boundaries} markieren Grenzen zwischen Zonen mit unterschiedlichem Vertrauen.
+\end{itemize}
+
+\block{DFD Levels: vom Kontext zu Details}{S.\,46}
+\begin{itemize}
+\item \textbf{Level 0} zeigt das ganze System als einen Prozess im Context Diagram.
+\item \textbf{Level 1} zerlegt diesen Prozess in Teilprozesse und zeigt detailliertere Datenwege.
+\item \textbf{Level 2} ergänzt weitere Teilprozesse, Interaktionen und Data Stores; \textbf{Level 3} dient sehr komplexen Systemen und ist eher unüblich.
+\end{itemize}
+
+\block{STRIDE: Security Threats systematisch prüfen}{S.\,50--51}
+\begin{itemize}
+\item \textbf{STRIDE} bedeutet \textbf{Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege}.
+\item Die Folien nennen als Ziele \textbf{Confidentiality, Integrity, Availability} sowie \textbf{Authenticity} bei Einbezug der Trust Boundaries.
+\item Die \textbf{DFD-Zuordnung} prüft bei Entities S/R, bei Data Flows T/I/D, bei Data Stores T/R/I/D und bei Processes alle sechs Kategorien.
+\item \textbf{STRIDE} wird bereits im Design und wiederholt eingesetzt; die Ergebnisse können mit \textbf{DREAD} zur Risikobewertung verbunden werden.
+\end{itemize}
+
+\block{LINDDUN: Privacy Threats statt nur CIA}{S.\,52--53}
+\begin{itemize}
+\item \textbf{Linking} verknüpft Daten oder Handlungen, während \textbf{Identifying} die Identität einer Person durch Leaks oder Schlussfolgerungen erschließt.
+\item \textbf{Non-repudiation} ermöglicht die Zuordnung einer Aussage zu einer Person und wird hier als Privacy Threat betrachtet.
+\item \textbf{Detecting} erschließt die Beteiligung einer Person durch Beobachtung, während \textbf{Data Disclosure} übermäßiges Sammeln, Speichern, Verarbeiten oder Teilen persönlicher Daten umfasst.
+\item \textbf{Unawareness / Unintervenability} bedeutet ungenügende Information, Beteiligung oder Eingriffsmöglichkeiten für betroffene Personen.
+\item \textbf{Non-compliance} bedeutet Abweichen von einschlägigen Best Practices, Standards oder Rechtsvorgaben; die Kategorien werden auf DFD-Elemente angewendet.
+\end{itemize}
+
+\block{Top-down oder Bottom-up?}{S.\,49, 61}
+\begin{itemize}
+\item \textbf{Top-down} beginnt beim unerwünschten Ergebnis und verfolgt mögliche Ursachen zurück, etwa mit Attack Trees, STRIDE oder LINDDUN.
+\item \textbf{Bottom-up} beginnt bei Möglichkeiten einzelner Beteiligter oder Angreifer und verfolgt die erreichbare Kompromittierung, etwa mit Kill Chains, Attack Graphs oder Szenarien.
+\item \textbf{Stakeholders, diverse Teams, Fachleute und frühere Vorfälle} liefern konkrete Angriffsmöglichkeiten statt bloßer Vermutungen.
+\end{itemize}
+
+\newpage
+\block{Attack Trees: Bedingungen für ein Angriffsziel}{S.\,58--60}
+\begin{itemize}
+\item Die \textbf{Root} ist das Angriffsziel, das von oben nach unten in Teilziele und Bedingungen zerlegt wird.
+\item Ein \textbf{OR}-Knoten ist erfüllt, wenn eine seiner Alternativen erfüllt ist; ein \textbf{AND}-Knoten verlangt die gemeinsam notwendigen Bedingungen.
+\item Die \textbf{Auswertung} läuft von den erfüllten Kindknoten zu ihrem direkten Elternknoten bis zur Root.
+\end{itemize}
+
+\block{Attack Graphs: Angriffspfade verbinden}{S.\,62--63}
+\begin{itemize}
+\item Ein \textbf{Attack Graph} stellt mögliche Angriffspfade bis zu einer erfolgreichen Kompromittierung dar.
+\item Im \textbf{Exploit-oriented Graph} sind Knoten Netzwerkzustände und Kanten Exploits, die zum nächsten kompromittierten Zustand führen.
+\item Im \textbf{Condition-oriented Graph} sind Knoten Vor- oder Nachbedingungen von Exploits und Kanten ihre ermöglichenden Beziehungen.
+\item Im \textbf{Asset/Host-oriented Graph} sind Knoten Hosts oder Assets und Kanten mögliche Exploits oder Eintrittspfade zwischen ihnen.
+\item \textbf{Abgrenzung}: Der Tree zerlegt Zielbedingungen, während der Graph Zustands-, Bedingungs- oder Hostverbindungen eines Angriffs zeigt.
+\end{itemize}
+
+\block{MITRE ATT\&CK: konkrete Angreiferhandlungen}{S.\,54--55}
+\begin{itemize}
+\item \textbf{MITRE ATT\&CK} ist eine Wissensbasis realer Angreiferhandlungen, die konkrete Szenarien für ein Threat Model liefert.
+\item \textbf{Tactics} beschreiben das Warum beziehungsweise das taktische Ziel, während \textbf{Techniques} das Wie beschreiben.
+\item \textbf{Sub-techniques} präzisieren eine Technique; \textbf{Procedures} sind deren konkrete Implementierung oder beobachtete Anwendung.
+\item \textbf{ATT\&CK Navigator} hilft beim Erkunden und Annotieren der Matrizen, während \textbf{MITRE ATLAS} AI-bezogene Angreiferhandlungen behandelt.
+\end{itemize}
+
+\block{OWASP Top 10: priorisierte Application Risks}{S.\,56--57}
+\begin{itemize}
+\item Die ursprünglichen \textbf{OWASP Top 10} fokussieren wichtige Risiken von Web Applications; daneben gibt es spezialisierte Listen für andere Anwendungen.
+\item Die Folien beschreiben als \textbf{Datengrundlage} NVD-Einträge mit CVEs, die nach CWEs kategorisiert werden.
+\item Die \textbf{Rangbildung laut Folien} berücksichtigt Exploitability, die durchschnittliche Wahrscheinlichkeit fehlender Schutzmaßnahmen und technische Auswirkungen.
+\item \textbf{Zusammenspiel}: STRIDE oder LINDDUN strukturieren Threat-Kategorien, während ATT\&CK und OWASP konkrete Angriffsszenarien beziehungsweise Risikoklassen beisteuern.
+\end{itemize}
+
+\newpage
+\section*{2\quad Hinweise der Lehrperson}
+{\small Nur Angaben aus den aktuellen Folien; mündliche Hinweise vom 28.10. sind ohne Transkript nicht überprüfbar.}
+
+\block{Minitest: Form und Lernfokus laut Folien}{S.\,69--75}
+\begin{itemize}
+\item \textbf{Fragenfolien} sind der Lernfokus, insbesondere Definitionen, aber das ganze Skript soll gelernt werden.
+\item \textbf{Moodle Quiz}: Genannt werden fünf Minuten zu Vorlesungsbeginn und zwei bis drei Fragen mit True/False, Multiple Choice, Fill in Text oder Mathematical Computations.
+\item \textbf{Wertung}: Vorgesehen sind zwölf Tests zu je fünf Punkten, von denen die neun besten mit maximal 45 Punkten zählen.
+\item \textbf{Datumswarnung}: Die Fragen-Trennfolie nennt den 24.~Oktober für den ersten Minitest, was für diese am 28.10. eingeordnete Lecture kein bestätigter kommender Termin ist.
+\end{itemize}
+
+\block{Projekt: jetzt System und Bedrohungen festlegen}{S.\,67--68}
+\begin{itemize}
+\item \textbf{Startaufgaben} sind System und Mission definieren, eine kurze Security Policy formulieren sowie Threat Actors mit Why und How bestimmen.
+\item \textbf{Methodenwahl} soll sowohl das System Modelling als auch die Threat Identification abdecken; Fragen können in Moodle gestellt werden.
+\item \textbf{Write-up}: Die verlinkte Vorlage ist zu verwenden; Zweierteams schreiben entweder zwei getrennte Berichte zu unterschiedlichen Teilthemen mit jeweils acht Seiten oder einen gemeinsamen Bericht mit gekennzeichneten Abschnittsbeiträgen.
+\end{itemize}
+
+\section*{3\quad Gut zu wissen}
+\block{Medical Records: Berechtigung ist nicht gleich Bedarf}{S.\,14--15}
+\begin{itemize}
+\item Die \textbf{UK/Scotland-Fallstudie} beschreibt zu weitreichende Zugriffe für Receptionists, die zur Identitätsprüfung auch vertrauliche Akteninhalte lesen konnten.
+\item \textbf{Anonymization} ist schwierig, weil öffentliche und private Informationen in medizinischen Daten miteinander verknüpft sind.
+\item \textbf{OpenSAFELY} wird als positives Beispiel genannt, bei dem Researchers Patientendaten nicht herunterladen und die Verarbeitung in der Cloud verbleibt.
+\end{itemize}
+
+\block{Weitere Schutzideen und ihre Grenzen}{S.\,8--9, 32}
+\begin{itemize}
+\item Eine \textbf{Data Diode} erlaubt Datenfluss physisch nur in eine Richtung und wird als spezialisierte Hardware mit minimaler Covert-Channel-Leakage vorgestellt.
+\item \textbf{Composability} ist nicht garantiert, denn sichere Einzelkomponenten ergeben nicht automatisch ein sicheres Gesamtsystem.
+\item \textbf{Fraud Mitigation} unterscheidet Deter als Abschrecken, Prevent als Blockieren, Detect als Erkennen, Alarm als Warnen und Delay als Zeitgewinn für Eingriffe.
+\end{itemize}
+
+\block{Threat Modelling Manifesto: gemeinsam und anwendbar}{S.\,64--65}
+\begin{itemize}
+\item \textbf{Do}: systematisch vorgehen, informierte Kreativität nutzen, verschiedene Perspektiven einbeziehen, hilfreiche Tools einsetzen und Theorie praktisch anwenden.
+\item \textbf{Don't}: auf einen einzelnen Hero Threat Modeler setzen, beim Bewundern des Problems stehen bleiben, Details überfokussieren oder auf die eine perfekte Darstellung warten.
+\end{itemize}
+
+\newpage
+\section*{4\quad Selbsttest}
+{\small Zehn Kurzfragen nach den Themen der Fragenfolien, PDF-S.\,70--74.}
+
+\qa{1}{Welche Regeln unterscheiden BLP und Biba?}
+{\textbf{Antwort:} BLP schützt Confidentiality mit No read up / No write down; Biba schützt Integrity mit No read down / No write up.}
+
+\qa{2}{Was leisten laterale Modelle und die Chinese Wall?}
+{\textbf{Antwort:} Sie begrenzen Informationsfluss zwischen Bereichen statt nur zwischen Hierarchiestufen; die Chinese Wall trennt insbesondere konkurrierende Kunden und Interessenkonflikte.}
+
+\qa{3}{Was sind CDI, UDI, TP und IVP in Clark--Wilson?}
+{\textbf{Antwort:} CDI sind integritätsgeschützte Daten, UDI unterliegen diesen Auflagen nicht, TP ändern CDI integritätserhaltend und IVP prüfen deren Integrity.}
+
+\qa{4}{Was ist das Agency Problem, und welche Duty-Trennung gibt es?}
+{\textbf{Antwort:} Beschäftigte verfolgen eigenen Nutzen; Serial trennt Arbeit und nachfolgende Kontrolle, Parallel verlangt mehrere Freigaben vor der Aktion.}
+
+\qa{5}{Wofür steht OCTAVE, und welche drei Phasen hat es?}
+{\textbf{Antwort:} Operationally Critical Threat, Asset, and Vulnerability Evaluation: Organizational View, Technological View, Strategy and Plan Development.}
+
+\qa{6}{Wofür steht PASTA, und wie lautet seine Reihenfolge?}
+{\textbf{Antwort:} Process for Attack Simulation \& Threat Analysis: Objectives, Technical Scope, Application Decomposition, Threat Analysis, Vulnerability Analysis, Attack Analysis, Risk and Impact Analysis.}
+
+\qa{7}{Welche Elemente und Detailstufen hat ein DFD?}
+{\textbf{Antwort:} External Entities, Processes, Data Stores und Data Flows; Level 0 zeigt das System als einen Prozess, Level 1--3 zerlegen es zunehmend detailliert.}
+
+\qa{8}{Was bedeuten STRIDE und LINDDUN?}
+{\textbf{Antwort:} STRIDE: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege; LINDDUN: Linking, Identifying, Non-repudiation, Detecting, Data Disclosure, Unawareness/Unintervenability, Non-compliance.}
+
+\qa{9}{Wie unterscheiden sich Top-down, Bottom-up, Tree und Graph?}
+{\textbf{Antwort:} Top-down zerlegt das unerwünschte Ziel, Bottom-up verfolgt Angriffsmöglichkeiten; ein Tree beschreibt Zielbedingungen mit AND/OR, ein Graph verbindet Zustände, Bedingungen oder Hosts über Angriffspfade.}
+
+\qa{10}{Was liefern ATT\&CK und OWASP für ein Threat Model?}
+{\textbf{Antwort:} ATT\&CK liefert Angreiferverhalten mit Tactics als Warum, Techniques als Wie, Sub-techniques als Präzisierung und Procedures als konkrete Umsetzung; OWASP liefert priorisierte Application-Risikoklassen.}
+\end{document}
