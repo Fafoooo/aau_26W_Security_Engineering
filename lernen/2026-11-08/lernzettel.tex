@@ -1,0 +1,190 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=19mm]{geometry}
+\usepackage{amsmath,amssymb,enumitem}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist[itemize]{leftmargin=*,itemsep=4pt,topsep=3pt,parsep=0pt}
+\newcommand{\block}[2]{\subsection*{#1 {\normalfont\small (Folien S.~#2)}}}
+\newcommand{\qa}[2]{\item \textbf{#1}\\#2\par\vspace{5pt}}
+\begin{document}
+\begin{center}
+{\Large\bfseries Lecture 4: Security Economics}\\[3pt]
+Security Engineering (622.755) -- Lernzettel 08.11.2026
+\end{center}
+{\small Nur Folien: Ein passendes Transkript fehlt; Seitenverweise meinen PDF-Seiten.}
+\section*{1. Muss ich wissen}
+\block{Game Theory: Was wird modelliert?}{8, 11--12, 54}
+\begin{itemize}
+\item \textbf{Game Theory} untersucht Kooperation und Konflikt unabhängiger Entscheidungsträger, deren Entscheidungen die Reaktionen anderer berücksichtigen müssen.
+\item \textbf{PAPI} steht für Players, Actions, Payoffs und Information Structure: Akteure, Aktionen, Nutzen und verfügbare Information.
+\item \textbf{Rationality} bedeutet im Modell, den eigenen erwarteten Payoff zu maximieren, nicht den gemeinsamen Nutzen.
+\item \textbf{Strategische Abhängigkeit} liegt vor, wenn die beste eigene Entscheidung davon abhängt, was andere tun.
+\end{itemize}
+\block{Spieltypen auseinanderhalten}{10, 55}
+\begin{itemize}
+\item \textbf{Perfect Information} bedeutet nach der Foliendefinition, dass der vollständige Spielzustand bekannt ist, wie beim Schach.
+\item \textbf{Imperfect Information} bedeutet, unter begrenzter Information entscheiden zu müssen, wie beim Poker.
+\item \textbf{One-shot / Repeated} unterscheidet einmaliges Spielen von wiederholten Begegnungen.
+\item \textbf{Simultaneous / Sequential} unterscheidet gleichzeitige Entscheidungen von einer Zugfolge.
+\end{itemize}
+\block{Strategy und Normal Form}{13--16}
+\begin{itemize}
+\item Eine \textbf{Strategy} ist ein vollständiger Handlungsplan für jedes Information Set, auch wenn dieser Entscheidungspunkt nie erreicht wird.
+\item Die \textbf{Normal Form} stellt Strategien und zugehörige Payoffs in einer Matrix dar.
+\item \textbf{Zeilen} gehören zu Player 1, Spalten zu Player 2 und das Tupel $(u_1,u_2)$ nennt zuerst den Nutzen des Zeilenspielers.
+\item Im \textbf{Zero-sum Game} entspricht der Gewinn eines Spielers dem Verlust des anderen, wie bei Matching Pennies.
+\end{itemize}
+\block{Strict Dominance erkennen}{17--20, 56}
+\begin{itemize}
+\item Eine \textbf{strictly dominated Strategy} ist bei jeder gegnerischen Strategiewahl schlechter als eine bestimmte andere eigene Strategie.
+\item Eine \textbf{strictly dominant Strategy} ist umgekehrt bei jeder gegnerischen Wahl besser als jede eigene Alternative.
+\item Bei \textbf{Iterated Elimination} werden strikt dominierte Strategien gestrichen und die verbleibenden Möglichkeiten erneut verglichen.
+\item \textbf{Vergleichsregel:} Für Player 1 innerhalb jeder Spalte die ersten Zahlen vergleichen, für Player 2 innerhalb jeder Zeile die zweiten Zahlen.
+\end{itemize}
+
+\newpage
+\section*{1. Muss ich wissen -- Equilibria}
+\block{Nash Equilibrium: Nur allein abweichen}{21--22, 35, 57}
+\begin{itemize}
+\item Ein \textbf{Strategy Profile} enthält je eine Strategie pro Spieler.
+\item Ein \textbf{Nash Equilibrium (NE)} ist ein Profil, in dem niemand durch einen einseitigen Strategiewechsel seinen Payoff verbessern kann.
+\item Eine \textbf{Best Response} ist die beste Antwort auf festgehaltene Strategien der anderen, und im NE sind alle Strategien gegenseitige Best Responses.
+\item \textbf{Pure Strategies} legen eine Strategie fest, während \textbf{Mixed Strategies} Wahrscheinlichkeiten über reine Strategien vergeben.
+\item \textbf{Existenz:} Ein endliches Matrixspiel besitzt ein NE, aber nicht zwingend eines in reinen Strategien.
+\end{itemize}
+\block{Prisoner's Dilemma: Individuell gegen kollektiv}{24--28, 55, 58}
+\begin{itemize}
+\item \textbf{Beide deny:} Beide erhalten jeweils ein Jahr Haft.
+\item \textbf{Einer confess, einer deny:} Der Geständige kommt frei, der andere erhält sechs Jahre Haft.
+\item \textbf{Beide confess:} Beide erhalten jeweils drei Jahre Haft.
+\item \textbf{Dominanzprüfung:} Bei gegnerischem deny ist frei besser als ein Jahr, bei gegnerischem confess sind drei Jahre besser als sechs Jahre.
+\item \textbf{Ergebnis:} $(\text{confess},\text{confess})$ ist das Dominant Strategy Equilibrium, obwohl beide mit gemeinsamem deny besser gestellt wären.
+\end{itemize}
+\block{Pareto Efficiency ist nicht Nash und nicht Fairness}{23, 39, 58}
+\begin{itemize}
+\item Eine \textbf{Pareto Improvement} stellt mindestens eine Person besser, ohne jemanden schlechterzustellen.
+\item Eine \textbf{Pareto Efficient Allocation} lässt keine solche Verbesserung mehr zu.
+\item Ein \textbf{Social Optimum} maximiert den Gesamtnutzen und muss Pareto-efficient sein, während Pareto Efficiency allein keine Fairness garantiert.
+\item \textbf{NE ist nicht automatisch Pareto-efficient:} Im Prisoner's Dilemma verbessert der gemeinsame Wechsel von confess zu deny beide Spieler, obwohl ein einseitiger Wechsel nicht hilft.
+\item \textbf{Mechanism Design} verändert Spielregeln oder Anreize, damit individuell sinnvolle Entscheidungen besser zum kollektiven Ziel passen.
+\end{itemize}
+
+\newpage
+\section*{1. Muss ich wissen -- Markets}
+\block{Security Economics: Wer entscheidet, wer zahlt?}{3--5}
+\begin{itemize}
+\item Das \textbf{Agency Problem} beschreibt, dass Beschäftigte ihren eigenen Nutzen statt automatisch den Nutzen ihres Arbeitgebers optimieren.
+\item \textbf{Misaligned Incentives} entstehen etwa, wenn Alice schützt, aber Bob die Kosten eines Sicherheitsversagens trägt.
+\item \textbf{Economic Analysis} untersucht fehlende Kooperation, Marktmacht und Marktversagen als Ursachen von Security Failures.
+\item \textbf{Analysis und Data} helfen, Schäden zu quantifizieren, Gegenmaßnahmen zu priorisieren und Policy zu beeinflussen.
+\end{itemize}
+\block{Competitive Equilibrium und Welfare Theorems}{38--40, 59--60}
+\begin{itemize}
+\item Im \textbf{Competitive Equilibrium} entsprechen sich Angebot und Nachfrage zum Marktpreis, den kein einzelner Käufer oder Verkäufer allein verändern kann.
+\item Das \textbf{First Welfare Theorem} ordnet dem Marktgleichgewicht unter den Modellbedingungen Pareto Efficiency zu.
+\item Das \textbf{Second Welfare Theorem} beschreibt laut Folien die Erreichbarkeit einer Pareto-optimalen Allokation durch Marktkräfte bei konvexen Präferenzen.
+\item Die \textbf{Bedingungsliste der Folien} umfasst rationale Akteure, klar definierte Property Rights ohne Externalities, vollständige Information, keine Transaction Costs und konvexe Präferenzen.
+\item \textbf{Grenzen:} Information Asymmetry, Monopolmacht, Externalities, Transaction Costs und irrationales Verhalten verletzen die idealisierten Bedingungen.
+\end{itemize}
+\block{Externalities und Public Goods}{43--44, 61}
+\begin{itemize}
+\item \textbf{Externalities} sind für andere relevante Nebenwirkungen, die nicht direkt gehandelt beziehungsweise vollständig über Property Rights zugeordnet werden.
+\item Eine \textbf{negative Externality} ist etwa ein IoT-Gerät im Botnet, eine \textbf{positive Externality} sind etwa technische Standards.
+\item \textbf{Effizienzfolge:} Bei Externalities ist Pareto Efficiency eines Competitive Equilibrium nicht mehr gesichert.
+\item Ein \textbf{Public Good} ist non-rivalrous und non-excludable, wie wissenschaftliches Wissen.
+\item \textbf{Free-riding} bedeutet, von der Arbeit anderer zu profitieren, ohne selbst beizutragen, wie im Folienbeispiel OpenSSL oder Python.
+\end{itemize}
+\block{Network Externalities}{45, 61}
+\begin{itemize}
+\item \textbf{Network Externalities} erhöhen den Nutzen eines Netzwerks für einzelne Nutzer, wenn mehr Menschen daran teilnehmen.
+\item \textbf{Metcalfe's Law} setzt vereinfacht den Netzwerkwert proportional zur Nutzerzahl im Quadrat, wobei die Realität laut Folie komplexer ist.
+\item \textbf{Lock-in} kann entstehen, wenn der Wert des großen bestehenden Netzwerks den Wechsel zu einer Alternative unattraktiv macht.
+\end{itemize}
+
+\newpage
+\section*{1. Muss ich wissen -- Information Markets}
+\block{Low Marginal Costs und Technical Lock-in}{42, 47--49, 62}
+\begin{itemize}
+\item \textbf{Marginal Cost} bezeichnet die Kosten einer weiteren Informationskopie, die im Folienmodell null sind und Wettbewerbspreise sowie Monetarisierung unter Druck setzen.
+\item \textbf{Technical Lock-in} entsteht durch Bindungen wie ergänzende Apps, erlernte Bedienkenntnisse, Cloud Services oder Subscriptions.
+\item \textbf{Switching Costs} sind die beim Anbieterwechsel entstehenden Kosten und Mühen.
+\item Das \textbf{Fundamental Theorem of Information Goods} setzt nach Shapiro/Varian in den Folien den Nettobarwert einer Kundenbasis ihren gesamten Switching Costs gleich.
+\item \textbf{Dominant-firm Markets} werden durch niedrige Marginal Costs, Technical Lock-in und Network Externalities begünstigt, gemeinsam besonders stark.
+\end{itemize}
+\block{Vendor Security versus User Security}{49--50}
+\begin{itemize}
+\item Der \textbf{Wettlauf um Market Share} kann frühe Markteinführung gegenüber späterer Produktqualität priorisieren.
+\item \textbf{Two-sided Markets} müssen auch die andere Marktseite ansprechen, etwa Werbetreibende statt nur Nutzer.
+\item \textbf{Security-Konflikt:} Die Anreize des Anbieters müssen deshalb nicht mit den Schutzinteressen seiner Nutzer übereinstimmen.
+\end{itemize}
+\block{Asymmetric Information und Signalling}{51--52, 62}
+\begin{itemize}
+\item \textbf{Asymmetric Information} liegt vor, wenn eine Seite mehr über die relevante Qualität oder das Verhalten weiß als die andere.
+\item Im \textbf{Market of Lemons} können Käufer gute und schlechte Gebrauchtwagen nicht unterscheiden, wodurch verborgene Qualität das Marktergebnis beeinflusst.
+\item \textbf{Signalling} macht Qualität durch ein erkennbares Signal glaubhafter, etwa eine Garantie, die einem Anbieter guter Autos günstiger kommt.
+\item \textbf{Adverse Selection} ist das Hidden-information-Problem, bei dem ein Informationsvorsprung über Produkt oder Dienstleistung in einer Transaktion ausgenutzt wird.
+\item \textbf{Moral Hazard} ist das Hidden-action-Problem, bei dem jemand nach einer Vereinbarung sein Verhalten ändert, weil er die Folgen nicht selbst zu tragen glaubt.
+\end{itemize}
+\block{Versicherungsbeispiel sicher unterscheiden}{52}
+\begin{itemize}
+\item \textbf{Adverse Selection:} Bereits riskant fahrende Personen kaufen das sichere Auto, um Unfälle eher zu überleben.
+\item \textbf{Moral Hazard:} Personen fahren erst wegen der zusätzlichen Sicherheit schneller.
+\item \textbf{Gegenanreize} sind Selbstbehalt und No-claim Bonus, die eigenes Risiko wieder spürbar machen.
+\item \textbf{Cyber Insurance} hat unter anderem das Problem, den tatsächlichen Security-Zustand einer Firma zu beurteilen.
+\end{itemize}
+
+\newpage
+\section*{2. Hinweise der Lehrperson}
+{\small Ausschließlich Angaben aus diesem Foliensatz, keine transkribierten Aussagen.}
+\block{Lernfokus und Testform laut Folien}{56, 63}
+\begin{itemize}
+\item \textbf{Lernfokus:} Die Fragen am Ende und besonders deren Definitionen stehen im Mittelpunkt, dennoch soll das gesamte Skriptum gelernt werden.
+\item \textbf{Minitest:} Die Folie nennt ein Moodle Quiz mit zwei bis drei Fragen in fünf Minuten zu Vorlesungsbeginn, außer in der ersten Vorlesung.
+\item \textbf{Fragetypen:} True/False, Multiple Choice, Fill in Text und Mathematical Computations werden genannt.
+\item \textbf{Wertung:} Zwölf Tests mit je fünf Punkten sind vorgesehen, die neun besten zählen bis maximal 45 Punkte.
+\item \textbf{Spielrechnung:} Auf der Dominanz-Fragenfolie steht, dass ein Spiel im Minitest vorkommen kann und drei Punkte wert ist.
+\end{itemize}
+\block{Ausschluss und Datumsgrenzen}{1, 33--34, 53}
+\begin{itemize}
+\item \textbf{Not for minitest} steht ausdrücklich auf der statischen Hawk--Dove-Herleitung und auf Replicator Dynamics, nicht auf allen Game-Theory-Folien.
+\item \textbf{Keine aktuelle Terminbestätigung:} Die Fragenfolie nennt den ersten Minitest am 7.~November, während dieser Auftrag dem 8.~November zugeordnet ist.
+\item \textbf{Quellengrenze:} Die Titelseite trägt noch 25W und ein passendes Lecture-4-Transkript fehlt, weshalb daraus keine mündlichen Hinweise oder aktuellen Kalendertermine abgeleitet werden.
+\end{itemize}
+\section*{3. Gut zu wissen}
+\block{Repeated Games und Kooperation}{27--29}
+\begin{itemize}
+\item \textbf{Tit-for-Tat} beginnt kooperativ und übernimmt danach jeweils den vorherigen Zug des Gegners.
+\item \textbf{Noise} kann wechselseitige Defection verfestigen, weshalb gelegentliches Vergeben wieder Kooperation ermöglichen kann.
+\item \textbf{Regulatory Interventions} können langfristige Wiederholung, gegenseitigen Nutzen und geänderte Anreize fördern.
+\end{itemize}
+\block{Hawk--Dove: Ergänzung, Herleitung nicht Teststoff}{30--34}
+\begin{itemize}
+\item \textbf{Doves} teilen Ressourcen, \textbf{Hawks} versuchen alles zu nehmen, und Hawk gegen Hawk riskiert einen verlustreichen Kampf.
+\item \textbf{$v$ und $c$} bezeichnen Ressourcenwert und Kampfkosten, wobei bei $v>c$ die Population zu Hawks tendiert.
+\item Für \textbf{$c>v$} nennt die Folie eine gemischte Population mit Hawk-Anteil $v/c$, ohne dass hier die ausgeschlossene Herleitung verlangt wird.
+\end{itemize}
+\block{Anwendungen und Lesestoff}{9, 64}
+\begin{itemize}
+\item \textbf{Security-Anwendungen} sind Network Hardening, Honeypot Allocation, Patrolling, Moving Target Defense und Cyber Insurance.
+\item \textbf{Vertiefung:} Die Folien verweisen auf Kapitel 8, Economics, in Ross Andersons \emph{Security Engineering}, Third Edition.
+\end{itemize}
+
+\newpage
+\section*{4. Selbsttest}
+{\small Zehn kurze Fragen mit Antworten im Stil der Fragenfolien S.~54--62.}
+\begin{enumerate}[leftmargin=*,itemsep=7pt,topsep=6pt]
+\qa{Was umfasst PAPI, und was heißt rational?}{Players, Actions, Payoffs und Information Structure; rationale Spieler maximieren ihren eigenen erwarteten Payoff.}
+\qa{Welche drei Unterscheidungen von Spieltypen werden genannt?}{Perfect/Imperfect Information, One-shot/Repeated und Simultaneous/Sequential.}
+\qa{Wie lautet das Dominant Strategy Equilibrium der Matrix auf S.~56?}{Player 1 wählt bottom: $57>45$ bei left und $40>28$ bei right; Player 2 wählt right: $57>45$ bei Top und $40>28$ bei bottom; Ergebnis: $(\mathrm{bottom},\mathrm{right})$ mit Payoffs $(40,40)$.}
+\qa{Welche reinen NE besitzt die Matrix auf S.~57?}{Bei $(\mathrm{Top},\mathrm{left})$ sind $1>0{,}5$ und $3>0{,}5$, bei $(\mathrm{bottom},\mathrm{right})$ sind $3>0{,}5$ und $1>0{,}5$; beide sind NE, während in den anderen beiden Zellen ein Spieler profitabel wechseln kann.}
+\qa{Warum zeigt das Prisoner's Dilemma, dass NE nicht Pareto Efficiency garantiert?}{Beide wählen individuell confess und erhalten je drei Jahre, obwohl gemeinsames deny mit je einem Jahr beide besserstellt.}
+\qa{Welche Bedingungen nennen die Folien für Market Efficiency?}{Rationale Akteure, klare Property Rights ohne Externalities, vollständige Information, keine Transaction Costs und konvexe Präferenzen.}
+\qa{Was ist eine Externality, und welches Security-Beispiel wird genannt?}{Eine nicht direkt gehandelte Nebenwirkung für andere; ein IoT-Gerät im Botnet erzeugt eine negative Externality.}
+\qa{Was trennt Public Goods von Network Externalities?}{Public Goods sind non-rivalrous und non-excludable; Network Externalities bedeuten steigenden Nutzernutzen durch zusätzliche Netzwerkteilnehmer.}
+\qa{Welche drei Faktoren begünstigen dominante Anbieter in Information Markets?}{Niedrige Marginal Costs, Technical Lock-in und Network Externalities.}
+\qa{Wie unterscheidet man Moral Hazard von Adverse Selection?}{Moral Hazard betrifft Hidden Action nach der Vereinbarung, Adverse Selection betrifft Hidden Information über Produkt oder Dienstleistung bei der Transaktion.}
+\end{enumerate}
+\end{document}
